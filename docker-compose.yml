@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+
+    # Development container. Runs in debug mode and live-reloading on ./config/config.yml file update.
+  develop:
+    hostname: anonym-dev
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    environment:
+      DEBUG: "true"
+      SERVING_PORT: ":8808"
+    volumes:
+      - .:/anonym
+    working_dir: /anonym
+    ports:
+      - "8808:8808"  # Opened ports
+    links:
+      - anonym-data
+      - redis
+    command: bash -c "go mod download && make serve"
+
+  anonym-data:
+    image: mongo:latest
+    container_name: "anonym-data"
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+      - MONGODB_DATABASE=testdb
+    volumes:
+      - ./.data/db:/data/db
+    ports:
+      - 27017:27017
+    command: mongod --logpath=/dev/null # --quiet
+
+    redis:
+      image: redis:alpine
+      container_name: redis

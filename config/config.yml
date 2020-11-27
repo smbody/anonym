@@ -1,0 +1,14 @@
+server:
+name: "Anonymous security server"
+version: "0.0.1b"
+host:
+port: 8808
+mongo:
+  uri: "mongodb://anonymous-data:27017"
+  name: "anonymous"
+redis:
+  server: "redis"
+  password: ""
+  DB: 0
+token:
+  lifespan: 14400
