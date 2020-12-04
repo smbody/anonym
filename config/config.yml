@@ -1,13 +1,13 @@
 server:
-name: "Anonymous security server"
-version: "0.0.1b"
-host:
-port: 8808
+  name: "Anonymous security server"
+  version: "0.0.1.24b"
+  host:
+  port: 8808
 mongo:
-  uri: "mongodb://anonymous-data:27017"
+  uri: "mongodb://anonym-data:27017"
   name: "anonymous"
 redis:
-  server: "redis"
+  server: "redis:6379"
   password: ""
   DB: 0
 token:

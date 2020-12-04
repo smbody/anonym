@@ -23,6 +23,26 @@ services:
       - redis
     command: bash -c "go mod download && make serve"
 
+    # Production container.
+  prod:
+    hostname: anonym
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: prod
+    environment:
+      SERVING_PORT: ":8808"
+#    volumes:
+#      - .:/anonym
+    working_dir: /anonym
+    ports:
+      - "8808:8808"  # Opened ports
+    links:
+      - anonym-data
+      - redis
+    command: ./anonym
+
   anonym-data:
     image: mongo:latest
     container_name: "anonym-data"
@@ -36,6 +56,10 @@ services:
       - 27017:27017
     command: mongod --logpath=/dev/null # --quiet
 
-    redis:
-      image: redis:alpine
-      container_name: redis
+  redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    command: redis-server --save ''
+

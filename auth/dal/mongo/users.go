@@ -15,7 +15,7 @@ type Users struct {
 	userList *mongo.Collection
 }
 
-func InitUsers() *Users {
+func InitUsers(monga *mongo.Database) *Users {
 	return &Users{
 		ctx:      context.Background(),
 		userList: monga.Collection("Users"),
@@ -39,10 +39,10 @@ func (r Users) FindById(id string) (user *model.User) {
 		errors.Throw(errors.UnknownUser)
 		return nil
 	}
-	user = model.NewUser()
-	if err := r.userList.FindOne(r.ctx, bson.M{"_id": primitiveId}).Decode(user); err != nil {
+	mongoUser := &mongoModel.User{}
+	if err := r.userList.FindOne(r.ctx, bson.M{"_id": primitiveId}).Decode(mongoUser); err != nil {
 		errors.Throw(errors.CantDecodeData)
 		return nil
 	}
-	return user
+	return mongoUser.ToModel()
 }

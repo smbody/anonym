@@ -11,3 +11,16 @@ RUN ./configure
 RUN make
 RUN make install
 WORKDIR /anonym
+
+FROM golang:alpine as builder
+COPY . /anonym
+WORKDIR /anonym
+RUN go mod download
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo .
+
+#Production environment
+FROM scratch as prod
+COPY --from=builder /anonym/config/config.yml /anonym/config/config.yml
+COPY --from=builder /anonym/anonym /anonym/anonym
+WORKDIR /anonym
+

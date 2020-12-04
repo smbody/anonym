@@ -4,6 +4,10 @@
 *.dll
 *.so
 *.dylib
+*.pid
+
+# Database files
+.data
 
 # Test binary, built with `go test -c`
 *.test
