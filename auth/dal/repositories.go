@@ -1,11 +1,13 @@
 package dal
 
 import (
-	"github.com/smbody/anonym/auth/dal/mongo"
+	dal "github.com/smbody/anonym/auth/dal/mongo"
 	"github.com/smbody/anonym/model"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 type Repositories struct {
+	monga *mongo.Database
 	Users UsersRepo
 }
 
@@ -15,7 +17,9 @@ type UsersRepo interface {
 }
 
 func Init() *Repositories {
+	db := dal.InitMonga()
 	return &Repositories{
-		mongo.InitUsers(),
+		db,
+		dal.InitUsers(db),
 	}
 }

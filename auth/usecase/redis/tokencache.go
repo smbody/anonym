@@ -6,6 +6,7 @@ import (
 	"github.com/go-redis/redis/v8"
 	"github.com/smbody/anonym/config"
 	"github.com/smbody/anonym/model"
+	"log"
 	"time"
 )
 
@@ -21,6 +22,7 @@ func InitTokenCache() *TokenCache {
 		Password: config.GetString("redis.password"),
 		DB:       config.GetInteger("redis.DB"),
 	}
+	log.Printf("Connect to Redis. Addr = %s, DB=%v", options.Addr, options.DB)
 	return &TokenCache{
 		redis.NewClient(options),
 		context.Background(),
@@ -29,15 +31,17 @@ func InitTokenCache() *TokenCache {
 }
 
 func (t TokenCache) Find(token *model.Token) (user *model.User, err error) {
-	if s, err := t.redis.Get(t.ctx, token.Key).Result(); err ==nil {
+	s, err := t.redis.Get(t.ctx, token.Key).Result();
+	if err == nil {
 		user, err = t.unmarshal([]byte(s))
 	}
 	return
 }
 
-func (t TokenCache) Add(token *model.Token, user *model.User) (err error){
-	if s, err := t.marshal(user); err ==nil {
-		t.redis.SetEX(t.ctx, token.Key, s, t.lifespan*time.Second)
+func (t TokenCache) Add(token *model.Token, user *model.User) (err error) {
+	s, err := t.marshal(user)
+	if err == nil {
+		err = t.redis.Set(t.ctx, token.Key, s, t.lifespan*time.Second).Err()
 	}
 	return
 }

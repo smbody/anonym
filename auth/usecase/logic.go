@@ -20,9 +20,9 @@ func Init(r dal.UsersRepo) *Logic {
 }
 
 
-func (l Logic) SignUp() *model.Token {
+func (l Logic) SignUp() *model.User {
 	user := l.repo.Add()
-	return l.login(user)
+	return user
 }
 
 func (l Logic) SignIn(Id string) *model.Token {
@@ -35,18 +35,18 @@ func (l Logic) SignIn(Id string) *model.Token {
 
 }
 
-func (l Logic) login(user *model.User) *model.Token {
-	token, err := model.NewToken()
-	if err != nil {
-		errors.Throw(errors.ErrorGeneratingToken)
-	} else {
-		l.cache.Add(token, user)
+func (l Logic) login(user *model.User) (token *model.Token) {
+	if token, err := model.NewToken(); err == nil {
+		if err = l.cache.Add(token, user); err == nil {return token}
 	}
-	return token
+	errors.Throw(errors.ErrorGeneratingToken)
+	return nil
 }
 
 func (l Logic) Verify(token *model.Token) *model.User {
-	if user, err := l.cache.Find(token); err !=nil {return user}
+	if user, err := l.cache.Find(token); err == nil {
+		return user
+	}
 	return nil
 }
 

@@ -7,8 +7,6 @@ import (
 	"net/http"
 )
 
-var repo = dal.Init()
-
 type Anonymous interface {
 	SignUp(writer http.ResponseWriter, request *http.Request)
 	SignIn(writer http.ResponseWriter, request *http.Request)
@@ -16,5 +14,5 @@ type Anonymous interface {
 }
 
 func Init() Anonymous {
-	return dts.Init(usecase.Init(repo.Users))
+	return dts.Init(usecase.Init(dal.Init().Users))
 }

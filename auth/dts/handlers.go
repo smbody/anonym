@@ -16,17 +16,17 @@ func Init(l *usecase.Logic) *Handlers {
 }
 
 func (a *Handlers) SignUp(writer http.ResponseWriter, request *http.Request) {
-	Write(a.bl.SignUp())
+	writer.Write(Marshal(a.bl.SignUp()))
 }
 
 func (a *Handlers) SignIn(writer http.ResponseWriter, request *http.Request) {
 	user := model.NewUser()
-	Read(request.Body, user)
-	Write(a.bl.SignIn(user.Id))
+	Unmarshal(request.Body, user)
+	writer.Write(Marshal(a.bl.SignIn(user.Id)))
 }
 
 func (a *Handlers) Verify(writer http.ResponseWriter, request *http.Request) {
 	token:=&model.Token{}
-	Read(request.Body, token)
-	Write(a.bl.Verify(token))
+	Unmarshal(request.Body, token)
+	writer.Write(Marshal(a.bl.Verify(token)))
 }

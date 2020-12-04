@@ -8,11 +8,9 @@ import (
 	"log"
 	"time"
 )
-var
-	monga = initMonga()
 
 
-func initMonga() *mongo.Database {
+func InitMonga() *mongo.Database {
 	mongoURI := config.GetString("mongo.uri")
 	client, err := mongo.NewClient(options.Client().ApplyURI(mongoURI))
 	if err != nil {
@@ -28,5 +26,7 @@ func initMonga() *mongo.Database {
 	if err != nil {
 		log.Fatal(err)
 	}
-	return client.Database(config.GetString("mongo.name"))
+	name := config.GetString("mongo.name")
+	log.Printf("Connect to Mongo (URI = %s, Database = %s)", mongoURI, name)
+	return client.Database(name)
 }
