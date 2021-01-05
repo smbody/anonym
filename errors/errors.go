@@ -22,6 +22,7 @@ const (
 	DataSourceError                = 105
 	UnknownUser                    = 1001
 	UnknownUserId                  = 1002
+	InvalidToken                   = 1001
 )
 
 func init() {
@@ -30,6 +31,7 @@ func init() {
 	PredefineError(CantEncodeData, 500, "Can't marshal object")
 	PredefineError(ErrorGeneratingToken, 500, "Error generating token")
 	PredefineError(UnknownUser, 500, "Unknown user")
+	PredefineError(InvalidToken, 500, "Invalid token")
 }
 
 func PredefineError(errCode ErrorCode, status int, errText string) {
