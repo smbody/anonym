@@ -47,6 +47,7 @@ func (l Logic) Verify(token *model.Token) *model.User {
 	if user, err := l.cache.Find(token); err == nil {
 		return user
 	}
+	errors.Throw(errors.InvalidToken)
 	return nil
 }
 
