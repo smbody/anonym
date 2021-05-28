@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-var defaultHandler = alice.New(errorHandling)
+var defaultHandler = alice.New(errorHandling, cors)
 
 func Route(handler http.HandlerFunc) http.Handler {
 	return defaultHandler.Then(handler)
