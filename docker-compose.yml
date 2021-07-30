@@ -13,6 +13,8 @@ services:
     environment:
       DEBUG: "true"
       SERVING_PORT: ":8808"
+    cap_add:
+      - SYS_PTRACE
     volumes:
       - .:/anonym
     working_dir: /anonym
@@ -58,7 +60,7 @@ services:
     command: mongod --logpath=/dev/null # --quiet
 
   redis:
-    image: redis:alpine
+    image: redis:6
     container_name: redis
     ports:
       - "6379:6379"
