@@ -11,7 +11,6 @@ type User struct {
 
 func (u User) ToModel() *model.User {
 	return &model.User{
-		Id:   u.Id.Hex(),
+		Id: u.Id.Hex(),
 	}
 }
-

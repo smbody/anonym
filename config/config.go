@@ -13,11 +13,15 @@ func Init() {
 	_ = viper.ReadInConfig()
 }
 
+func Database() string {
+	return GetString("database.system")
+}
+
 func DataSourceName() string {
 	return GetString("database.uri")
 }
 
-func DatabaseName () string {
+func DatabaseName() string {
 	return GetString("database.name")
 }
 

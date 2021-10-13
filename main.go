@@ -16,7 +16,7 @@ func main() {
 	http.Handle("/signin", middlewares.Route(server.SignIn))
 	http.Handle("/verify", middlewares.Route(server.Verify))
 	listen := fmt.Sprintf("%s:%s", config.GetString("host"), config.GetString("port"))
-	log.Println("Server started (Addr = " +listen + ")")
+	log.Println("Server started (Addr = " + listen + ")")
 	if err := http.ListenAndServe(listen, nil); err != nil {
 		log.Println(err)
 	}

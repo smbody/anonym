@@ -10,7 +10,6 @@ import (
 	"time"
 )
 
-
 func Init() *Users {
 	return initUsers(initMonga())
 }

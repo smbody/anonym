@@ -10,12 +10,14 @@ type Token struct {
 }
 
 func NewToken() (token *Token, err error) {
-	if key, err := randomKey(32); err ==nil {token = &Token{key}}
+	if key, err := randomKey(32); err == nil {
+		token = &Token{key}
+	}
 	return
 }
 
 func randomKey(length int) (string, error) {
 	b := make([]byte, length)
-	 _, err := rand.Read(b)
+	_, err := rand.Read(b)
 	return hex.EncodeToString(b), err
 }
