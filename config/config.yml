@@ -3,7 +3,7 @@ server:
   version: "0.0.1.24b"
   host:
   port: 8808
-mongo:
+database:
   uri: "mongodb://anonym-data:27017"
   name: "anonymous"
 redis:

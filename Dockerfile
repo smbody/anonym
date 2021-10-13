@@ -1,18 +1,14 @@
-# Development environment
-# Unfortunately, linux alpine doesn't have fswatch package by default, so we will need to download source code and make it by outselves.
-FROM golang:alpine AS dev
-RUN apk update && apk upgrade && \
-apk add --no-cache bash git openssh autoconf automake libtool gettext gettext-dev make g++ texinfo curl
+# Base environment (alias: base)
+FROM amd64/golang:1.16.4 AS base
+
+# Development backend environment
+FROM base as dev
 WORKDIR /root
-RUN wget https://github.com/emcrisostomo/fswatch/releases/download/1.15.0/fswatch-1.15.0.tar.gz
-RUN tar -xvzf fswatch-1.15.0.tar.gz
-WORKDIR /root/fswatch-1.15.0
-RUN ./configure
-RUN make
-RUN make install
+RUN apt-get update && apt-get install -y fswatch
+RUN go get github.com/go-delve/delve/cmd/dlv
 WORKDIR /anonym
 
-FROM golang:alpine as builder
+FROM base as builder
 COPY . /anonym
 WORKDIR /anonym
 RUN go mod download

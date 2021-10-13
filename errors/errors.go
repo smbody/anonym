@@ -20,6 +20,7 @@ const (
 	CantEncodeData                 = 103
 	ErrorGeneratingToken           = 104
 	DataSourceError                = 105
+	CantConnectToToDatabase        = 106
 	UnknownUser                    = 1001
 	UnknownUserId                  = 1002
 	InvalidToken                   = 1001
@@ -30,7 +31,10 @@ func init() {
 	PredefineError(CantDecodeData, 400, "Can't decode data")
 	PredefineError(CantEncodeData, 500, "Can't marshal object")
 	PredefineError(ErrorGeneratingToken, 500, "Error generating token")
+	PredefineError(CantConnectToToDatabase, 500, "Database connection error")
+	PredefineError(DataSourceError, 500, "Error reading data from database")
 	PredefineError(UnknownUser, 500, "Unknown user")
+	PredefineError(UnknownUserId, 500, "Unknown user id")
 	PredefineError(InvalidToken, 500, "Invalid token")
 }
 
