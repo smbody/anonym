@@ -9,9 +9,8 @@ services:
       context: .
       dockerfile: Dockerfile
       target: dev
-    environment:
-      DEBUG: "true"
-      SERVING_PORT: ":8808"
+    cap_add:
+      - SYS_PTRACE
     volumes:
       - .:/anonym
     working_dir: /anonym
@@ -29,8 +28,6 @@ services:
       context: .
       dockerfile: Dockerfile
       target: prod
-    environment:
-      SERVING_PORT: ":8808"
     working_dir: /anonym
     ports:
       - "8808:8808"  # Opened ports
@@ -39,17 +36,32 @@ services:
       - redis
     command: ./anonym
 
+#  anonym-data:
+#    image: mongo:4.4
+#    environment:
+#      - MONGO_DATA_DIR=/data/db
+#      - MONGO_LOG_DIR=/dev/null
+#      - MONGODB_DATABASE=testdb
+#    volumes:
+#      - ./.data/db:/data/db
+#    ports:
+#      - 27017:27017
+#    command: mongod --logpath=/dev/null # --quiet
+
   anonym-data:
-    image: mongo:4.4
+    image: mysql:8.0
+    restart: unless-stopped
+    command: --init-file /data/init.sql --character-set-server=utf8 --collation-server=utf8_general_ci
     environment:
-      - MONGO_DATA_DIR=/data/db
-      - MONGO_LOG_DIR=/dev/null
-      - MONGODB_DATABASE=testdb
+      - MYSQL_ROOT_PASSWORD=19pzda12
+      - MYSQL_DATABASE=anonym
+      - MYSQL_USER=inspector
+      - MYSQL_PASSWORD=GDS64okey
     volumes:
-      - ./.data/db:/data/db
-    ports:
-      - 27017:27017
-    command: mongod --logpath=/dev/null # --quiet
+      - ./.data/mysql:/data/mysql
+      - ./.data/init.sql:/data/init.sql
+#    ports:
+#      - 3306:3306    #needs only for development purpose
 
   redis:
     image: redis:alpine
