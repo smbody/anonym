@@ -10,7 +10,6 @@ type Handlers struct {
 	bl *usecase.Logic
 }
 
-
 func Init(l *usecase.Logic) *Handlers {
 	return &Handlers{bl: l}
 }
@@ -26,7 +25,7 @@ func (a *Handlers) SignIn(writer http.ResponseWriter, request *http.Request) {
 }
 
 func (a *Handlers) Verify(writer http.ResponseWriter, request *http.Request) {
-	token:=&model.Token{}
+	token := &model.Token{}
 	Unmarshal(request.Body, token)
 	writer.Write(Marshal(a.bl.Verify(token)))
 }

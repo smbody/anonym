@@ -15,7 +15,7 @@ type Users struct {
 	userList *mongo.Collection
 }
 
-func InitUsers(monga *mongo.Database) *Users {
+func initUsers(monga *mongo.Database) *Users {
 	return &Users{
 		ctx:      context.Background(),
 		userList: monga.Collection("Users"),

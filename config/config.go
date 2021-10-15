@@ -13,6 +13,18 @@ func Init() {
 	_ = viper.ReadInConfig()
 }
 
+func Database() string {
+	return GetString("database.system")
+}
+
+func DataSourceName() string {
+	return GetString("database.uri")
+}
+
+func DatabaseName() string {
+	return GetString("database.name")
+}
+
 //GetString return string parameter value from config by his name
 func GetString(name string) string {
 	return viper.GetString(name)

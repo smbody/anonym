@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func errorHandling(next http.Handler) http.Handler{
+func errorHandling(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		defer recovery(w)
 		next.ServeHTTP(w, r)

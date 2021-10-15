@@ -20,5 +20,3 @@ func Marshal(v interface{}) []byte {
 	errors.Throw(errors.CantEncodeData)
 	return nil
 }
-
-

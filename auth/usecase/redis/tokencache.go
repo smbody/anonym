@@ -31,7 +31,7 @@ func InitTokenCache() *TokenCache {
 }
 
 func (t TokenCache) Find(token *model.Token) (user *model.User, err error) {
-	s, err := t.redis.Get(t.ctx, token.Key).Result();
+	s, err := t.redis.Get(t.ctx, token.Key).Result()
 	if err == nil {
 		user, err = t.unmarshal([]byte(s))
 	}

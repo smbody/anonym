@@ -6,7 +6,6 @@ import (
 	"github.com/smbody/anonym/model"
 )
 
-
 type Logic struct {
 	cache Cache
 	repo  dal.UsersRepo
@@ -18,7 +17,6 @@ func Init(r dal.UsersRepo) *Logic {
 		repo:  r,
 	}
 }
-
 
 func (l Logic) SignUp() *model.User {
 	user := l.repo.Add()
@@ -37,7 +35,9 @@ func (l Logic) SignIn(Id string) *model.Token {
 
 func (l Logic) login(user *model.User) (token *model.Token) {
 	if token, err := model.NewToken(); err == nil {
-		if err = l.cache.Add(token, user); err == nil {return token}
+		if err = l.cache.Add(token, user); err == nil {
+			return token
+		}
 	}
 	errors.Throw(errors.ErrorGeneratingToken)
 	return nil
@@ -50,5 +50,3 @@ func (l Logic) Verify(token *model.Token) *model.User {
 	errors.Throw(errors.InvalidToken)
 	return nil
 }
-
-

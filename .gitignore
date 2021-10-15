@@ -1,4 +1,5 @@
 # Binaries for programs and plugins
+anonym
 *.exe
 *.exe~
 *.dll
@@ -19,6 +20,7 @@
 # vendor/
 
 # OS generated files #
+*.pid
 .DS_Store
 .DS_Store?
 ._*

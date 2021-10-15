@@ -1,10 +1,11 @@
 server:
   name: "Anonymous security server"
-  version: "0.0.1.24b"
+  version: "0.0.1.32b"
   host:
   port: 8808
-mongo:
-  uri: "mongodb://anonym-data:27017"
+database:
+  system: "mysql"
+  uri: "inspector:GDS64okey@tcp(anonym-data:3306)/anonym?charset=utf8mb4&parseTime=True&loc=Local"
   name: "anonymous"
 redis:
   server: "redis:6379"

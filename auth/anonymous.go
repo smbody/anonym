@@ -14,5 +14,5 @@ type Anonymous interface {
 }
 
 func Init() Anonymous {
-	return dts.Init(usecase.Init(dal.Init().Users))
+	return dts.Init(usecase.Init(dal.Init()))
 }
