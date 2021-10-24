@@ -1,6 +1,7 @@
 package usecase
 
 import (
+	"fmt"
 	"github.com/smbody/anonym/auth/dal"
 	"github.com/smbody/anonym/errors"
 	"github.com/smbody/anonym/model"
@@ -26,7 +27,7 @@ func (l Logic) SignUp() *model.User {
 func (l Logic) SignIn(Id string) *model.Token {
 	user := l.repo.FindById(Id)
 	if user == nil {
-		errors.Throw(errors.UnknownUser)
+		errors.WrongData(fmt.Sprintf("Cant find user by id =%s", Id))
 		return nil
 	}
 	return l.login(user)
@@ -39,7 +40,7 @@ func (l Logic) login(user *model.User) (token *model.Token) {
 			return token
 		}
 	}
-	errors.Throw(errors.ErrorGeneratingToken)
+	errors.ErrorGeneratingToken()
 	return nil
 }
 
@@ -47,6 +48,6 @@ func (l Logic) Verify(token *model.Token) *model.User {
 	if user, err := l.cache.Find(token); err == nil {
 		return user
 	}
-	errors.Throw(errors.InvalidToken)
+	errors.TokenNotValid()
 	return nil
 }

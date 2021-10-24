@@ -7,7 +7,6 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/driver/sqlserver"
 	"gorm.io/gorm"
-	"log"
 )
 
 func Init() *Users {
@@ -17,8 +16,7 @@ func Init() *Users {
 func initGorm() *gorm.DB {
 	db, err := gorm.Open(dialect(config.Database(), config.DataSourceName()), &gorm.Config{})
 	if err != nil {
-		log.Fatalf("Error occurred while establishing connection to database %s, dsn=%s", config.Database(), config.DataSourceName())
-		errors.Throw(errors.CantConnectToToDatabase)
+		errors.DatabaseError(err)
 	}
 	return db
 
@@ -33,7 +31,7 @@ func dialect(database string, dsn string) gorm.Dialector {
 	case "sqlserver":
 		return sqlserver.Open(dsn)
 	default:
-		errors.Throw(errors.UnknownDatabase)
+		errors.UnknownDatabase(database)
 		return nil
 	}
 }
