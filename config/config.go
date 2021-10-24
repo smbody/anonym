@@ -14,7 +14,7 @@ func Init() {
 }
 
 func Database() string {
-	return GetString("database.system")
+	return GetString("database.type")
 }
 
 func DataSourceName() string {

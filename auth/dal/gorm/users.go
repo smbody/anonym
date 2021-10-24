@@ -28,6 +28,7 @@ func (u Users) FindById(id string) *model.User {
 }
 
 func initUsers(db *gorm.DB) *Users {
+	if err := db.AutoMigrate(&g.User{}); err!=nil {errors.Throw(errors.MigrationError)}
 	return &Users{db: db}
 
 }

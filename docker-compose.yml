@@ -36,6 +36,7 @@ services:
       - redis
     command: ./anonym
 
+# You can use Mongo or any other databases that supporting by GORM (MySQL, Postgress, SQLite,...)
 #  anonym-data:
 #    image: mongo:4.4
 #    environment:
@@ -51,7 +52,7 @@ services:
   anonym-data:
     image: mysql:8.0
     restart: unless-stopped
-    command: --init-file /data/init.sql --character-set-server=utf8 --collation-server=utf8_general_ci
+#    command: --init-file /data/init.sql --character-set-server=utf8 --collation-server=utf8_general_ci
     environment:
       - MYSQL_ROOT_PASSWORD=19pzda12
       - MYSQL_DATABASE=anonym
