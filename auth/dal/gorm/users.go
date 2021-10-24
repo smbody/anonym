@@ -21,7 +21,7 @@ func (u Users) Add() *model.User {
 
 func (u Users) FindById(id string) *model.User {
 	anm := &g.User{}
-	r := u.db.First(anm)
+	r := u.db.Where(&g.User{UserId:id}).First(anm)
 	if r.Error !=nil {errors.Throw(errors.DataSourceError)}
 	return anm.ToModel()
 
