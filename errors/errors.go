@@ -22,6 +22,7 @@ const (
 	DataSourceError                   = 105
 	CantConnectToToDatabase           = 106
 	UnknownDatabase                   = 107
+	MigrationError                    = 108
 	UnknownUser                       = 1001
 	UnknownUserId                     = 1002
 	InvalidToken                      = 1001

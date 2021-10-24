@@ -1,10 +1,12 @@
 package model
 
-import "github.com/smbody/anonym/model"
+import (
+	"github.com/smbody/anonym/model"
+)
 
 type User struct {
-	ID uint `gorm:"primaryKey"`
-	UserId string `gorm:"column:USERID"`
+	ID     uint
+	UserId string `gorm:"type:varchar(36);not null;uniqueIndex"`
 }
 
 func (u User) ToModel() *model.User {
