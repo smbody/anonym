@@ -18,8 +18,7 @@ func initMonga() *mongo.Database {
 	mongoURI := config.DataSourceName()
 	client, err := mongo.NewClient(options.Client().ApplyURI(mongoURI))
 	if err != nil {
-		log.Fatalf("Error occurred while establishing connection to %s", mongoURI)
-		errors.Throw(errors.CantConnectToToDatabase)
+		errors.UnknownDatabase(mongoURI)
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()

@@ -9,14 +9,14 @@ import (
 func Unmarshal(reader io.Reader, entity interface{}) {
 	decoder := json.NewDecoder(reader)
 	if err := decoder.Decode(entity); err != nil {
-		errors.Throw(errors.CantDecodeData)
+		errors.CantDecodeData(err)
 	}
 }
 
 func Marshal(v interface{}) []byte {
-	if result, err := json.Marshal(v); err == nil {
-		return result
+	result, err := json.Marshal(v)
+	if err != nil {
+		errors.CantEncodeData(err)
 	}
-	errors.Throw(errors.CantEncodeData)
-	return nil
+	return result
 }

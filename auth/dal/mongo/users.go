@@ -26,7 +26,7 @@ func (r Users) Add() (user *model.User) {
 	id := primitive.NewObjectID()
 	mongoUser := &mongoModel.User{Id: id}
 	if _, err := r.userList.InsertOne(r.ctx, mongoUser); err != nil {
-		errors.Throw(errors.DataSourceError)
+		errors.DatabaseError(err)
 	} else {
 		user = mongoUser.ToModel()
 	}
@@ -36,12 +36,12 @@ func (r Users) Add() (user *model.User) {
 func (r Users) FindById(id string) (user *model.User) {
 	primitiveId, err := primitive.ObjectIDFromHex(id)
 	if err != nil {
-		errors.Throw(errors.UnknownUser)
+		errors.WrongId()
 		return nil
 	}
 	mongoUser := &mongoModel.User{}
 	if err := r.userList.FindOne(r.ctx, bson.M{"_id": primitiveId}).Decode(mongoUser); err != nil {
-		errors.Throw(errors.CantDecodeData)
+		errors.CantDecodeData(err)
 		return nil
 	}
 	return mongoUser.ToModel()
