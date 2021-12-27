@@ -1,8 +1,8 @@
 package errors
 
-import (
-	"fmt"
-	"net/url"
+const (
+	errorGeneratingToken = 401
+	tokenNotValid        = 404
 )
 
 func ErrorGeneratingToken() {
@@ -18,13 +18,5 @@ func TokenNotValid() {
 		ErrCode: tokenNotValid,
 		Status:  401,
 		ErrText: "Token validation error",
-	})
-}
-
-func MethodNotAllowed(url *url.URL, grantedMethod string, deniedMethod string) {
-	throw(ServerError{
-		ErrCode: forbidden,
-		Status:  500,
-		ErrText: fmt.Sprintf("Method %s for %s not allowed. Only %s granted.", deniedMethod, url, grantedMethod),
 	})
 }

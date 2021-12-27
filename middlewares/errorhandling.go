@@ -16,7 +16,7 @@ func errorHandling(next http.Handler) http.Handler {
 func recovery(w http.ResponseWriter) {
 	if e := recover(); e != nil {
 		switch err := e.(type) {
-		case *errors.ServerError:
+		case errors.ServerError:
 			http.Error(w, err.Error(), err.Status)
 		case error:
 			http.Error(w, err.Error(), http.StatusInternalServerError)

@@ -2,16 +2,17 @@ package model
 
 import (
 	"github.com/smbody/anonym/model"
+	"strconv"
 )
 
 type User struct {
-	ID  uint
-	Key string `gorm:"type:varchar(36);not null;uniqueIndex"`
+	ID     uint
+	Secret string `gorm:"type:varchar(36);not null;uniqueIndex"`
 }
 
 func (u User) ToModel() *model.User {
 	return &model.User{
-		Id:  string(u.ID),
-		Key: u.Key,
+		Id:     strconv.FormatUint(uint64(u.ID), 10),
+		Secret: u.Secret,
 	}
 }

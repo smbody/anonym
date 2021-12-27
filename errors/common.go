@@ -5,18 +5,6 @@ import (
 	"log"
 )
 
-const (
-	unknownError      ErrorCode = 101
-	notServed         ErrorCode = 102
-	notImplementedYet ErrorCode = 103
-
-	errorGeneratingToken = 401
-	tokenRequired        = 402
-	forbidden            = 403
-	tokenNotValid        = 404
-	methodNotAllowed     = 405
-)
-
 type ErrorCode int
 
 type ServerError struct {

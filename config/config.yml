@@ -1,6 +1,6 @@
 server:
   name: "Anonymous security server"
-  version: "0.0.2.00b"
+  version: "0.0.3.0b"
   host:
   port: 8808
 database:

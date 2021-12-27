@@ -8,7 +8,6 @@ const (
 	cantDecodeData  = 202
 	cantEncodeData  = 203
 	wrongId         = 204
-	wrongData       = 205
 )
 
 func UnknownDatabase(db string) {

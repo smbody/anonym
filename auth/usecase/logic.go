@@ -24,10 +24,10 @@ func (l Logic) SignUp() *model.User {
 	return user
 }
 
-func (l Logic) SignIn(Key string) *model.Token {
-	user := l.repo.FindByKey(Key)
+func (l Logic) SignIn(Secret string) *model.Token {
+	user := l.repo.FindByKey(Secret)
 	if user == nil {
-		errors.WrongData(fmt.Sprintf("Cant find user by id =%s", Key))
+		errors.WrongData(fmt.Sprintf("Cant find user by id =%s", Secret))
 		return nil
 	}
 	return l.login(user)

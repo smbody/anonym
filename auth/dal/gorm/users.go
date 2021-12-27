@@ -20,7 +20,7 @@ func initUsers(db *gorm.DB) *Users {
 }
 
 func (u Users) Add() *model.User {
-	newUser := &g.User{Key: utils.AnonymKey()}
+	newUser := &g.User{Secret: utils.AnonymKey()}
 	r := u.db.Create(newUser)
 	if r.Error != nil {
 		errors.WrongData(r.Error.Error())
@@ -28,9 +28,9 @@ func (u Users) Add() *model.User {
 	return newUser.ToModel()
 }
 
-func (u Users) FindByKey(key string) *model.User {
+func (u Users) FindByKey(secret string) *model.User {
 	anm := &g.User{}
-	r := u.db.Where(&g.User{Key: key}).First(anm)
+	r := u.db.Where(&g.User{Secret: secret}).First(anm)
 	if r.Error != nil {
 		errors.WrongData(r.Error.Error())
 	}

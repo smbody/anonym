@@ -1,8 +1,8 @@
 package model
 
 type User struct {
-	Id  string
-	Key string
+	Id     string
+	Secret string
 }
 
 type Anonym struct {
