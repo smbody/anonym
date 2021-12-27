@@ -6,11 +6,13 @@ import (
 )
 
 type User struct {
-	Id primitive.ObjectID `bson:"_id,omitempty"`
+	Id     primitive.ObjectID `bson:"_id,omitempty"`
+	Secret string             `bson:"secret,omitempty"`
 }
 
 func (u User) ToModel() *model.User {
 	return &model.User{
-		Id: u.Id.Hex(),
+		Id:     u.Id.Hex(),
+		Secret: u.Secret,
 	}
 }

@@ -24,7 +24,7 @@ func initUsers(monga *mongo.Database) *Users {
 
 func (r Users) Add() (user *model.User) {
 	id := primitive.NewObjectID()
-	mongoUser := &mongoModel.User{Id: id}
+	mongoUser := &mongoModel.User{Id: id, Secret: user.Secret}
 	if _, err := r.userList.InsertOne(r.ctx, mongoUser); err != nil {
 		errors.DatabaseError(err)
 	} else {
@@ -33,14 +33,9 @@ func (r Users) Add() (user *model.User) {
 	return
 }
 
-func (r Users) FindByKey(id string) (user *model.User) {
-	primitiveId, err := primitive.ObjectIDFromHex(id)
-	if err != nil {
-		errors.WrongId()
-		return nil
-	}
+func (r Users) FindByKey(secret string) (user *model.User) {
 	mongoUser := &mongoModel.User{}
-	if err := r.userList.FindOne(r.ctx, bson.M{"_id": primitiveId}).Decode(mongoUser); err != nil {
+	if err := r.userList.FindOne(r.ctx, bson.M{"secret": secret}).Decode(mongoUser); err != nil {
 		errors.CantDecodeData(err)
 		return nil
 	}
