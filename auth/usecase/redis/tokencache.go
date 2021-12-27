@@ -30,7 +30,7 @@ func InitTokenCache() *TokenCache {
 	}
 }
 
-func (t TokenCache) Find(token *model.Token) (user *model.User, err error) {
+func (t TokenCache) Find(token *model.Token) (user *model.Anonym, err error) {
 	s, err := t.redis.Get(t.ctx, token.Key).Result()
 	if err == nil {
 		user, err = t.unmarshal([]byte(s))
@@ -38,7 +38,7 @@ func (t TokenCache) Find(token *model.Token) (user *model.User, err error) {
 	return
 }
 
-func (t TokenCache) Add(token *model.Token, user *model.User) (err error) {
+func (t TokenCache) Add(token *model.Token, user *model.Anonym) (err error) {
 	s, err := t.marshal(user)
 	if err == nil {
 		err = t.redis.Set(t.ctx, token.Key, s, t.lifespan*time.Second).Err()
@@ -46,12 +46,12 @@ func (t TokenCache) Add(token *model.Token, user *model.User) (err error) {
 	return
 }
 
-func (t TokenCache) marshal(user *model.User) ([]byte, error) {
+func (t TokenCache) marshal(user *model.Anonym) ([]byte, error) {
 	return json.Marshal(user)
 }
 
-func (t TokenCache) unmarshal(s []byte) (user *model.User, err error) {
-	user = &model.User{}
+func (t TokenCache) unmarshal(s []byte) (user *model.Anonym, err error) {
+	user = &model.Anonym{}
 	err = json.Unmarshal(s, &user)
 	return
 }

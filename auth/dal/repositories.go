@@ -10,7 +10,7 @@ import (
 
 type UsersRepo interface {
 	Add() *model.User
-	FindById(id string) *model.User
+	FindByKey(key string) *model.User
 }
 
 func Init() UsersRepo {

@@ -13,21 +13,27 @@ type Users struct {
 }
 
 func initUsers(db *gorm.DB) *Users {
-	if err := db.AutoMigrate(&g.User{}); err!=nil {errors.DatabaseError(err)}
+	if err := db.AutoMigrate(&g.User{}); err != nil {
+		errors.DatabaseError(err)
+	}
 	return &Users{db: db}
 }
 
 func (u Users) Add() *model.User {
-	newUser:=&g.User{UserId: utils.AnonymId()}
+	newUser := &g.User{Key: utils.AnonymKey()}
 	r := u.db.Create(newUser)
-	if r.Error !=nil {errors.WrongData(r.Error.Error())}
+	if r.Error != nil {
+		errors.WrongData(r.Error.Error())
+	}
 	return newUser.ToModel()
 }
 
-func (u Users) FindById(id string) *model.User {
+func (u Users) FindByKey(key string) *model.User {
 	anm := &g.User{}
-	r := u.db.Where(&g.User{UserId:id}).First(anm)
-	if r.Error !=nil {errors.WrongData(r.Error.Error())}
+	r := u.db.Where(&g.User{Key: key}).First(anm)
+	if r.Error != nil {
+		errors.WrongData(r.Error.Error())
+	}
 	return anm.ToModel()
 
 }

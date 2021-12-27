@@ -33,7 +33,7 @@ func (r Users) Add() (user *model.User) {
 	return
 }
 
-func (r Users) FindById(id string) (user *model.User) {
+func (r Users) FindByKey(id string) (user *model.User) {
 	primitiveId, err := primitive.ObjectIDFromHex(id)
 	if err != nil {
 		errors.WrongId()

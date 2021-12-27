@@ -60,7 +60,7 @@ services:
       - MYSQL_PASSWORD=GDS64okey
     volumes:
       - ./.data/mysql:/data/mysql
-      - ./.data/init.sql:/data/init.sql
+#      - ./.data/init.sql:/data/init.sql
 #    ports:
 #      - 3306:3306    #needs only for development purpose
 

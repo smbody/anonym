@@ -6,8 +6,8 @@ import (
 )
 
 type Cache interface {
-	Find(*model.Token) (*model.User, error)
-	Add(token *model.Token, user *model.User) error
+	Find(*model.Token) (*model.Anonym, error)
+	Add(token *model.Token, user *model.Anonym) error
 }
 
 func InitCache() Cache {
