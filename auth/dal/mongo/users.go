@@ -2,12 +2,12 @@ package mongo
 
 import (
 	"context"
-	mongoModel "github.com/smbody/anonym/auth/dal/mongo/model"
-	"github.com/smbody/anonym/errors"
-	"github.com/smbody/anonym/model"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
+	mongoModel "itsln.com/anonym/auth/dal/mongo/model"
+	"itsln.com/anonym/errors"
+	"itsln.com/anonym/model"
 )
 
 type Users struct {
@@ -24,7 +24,7 @@ func initUsers(monga *mongo.Database) *Users {
 
 func (r Users) Add() (user *model.User) {
 	id := primitive.NewObjectID()
-	mongoUser := &mongoModel.User{Id: id}
+	mongoUser := &mongoModel.User{Id: id, Secret: user.Secret}
 	if _, err := r.userList.InsertOne(r.ctx, mongoUser); err != nil {
 		errors.DatabaseError(err)
 	} else {
@@ -33,14 +33,9 @@ func (r Users) Add() (user *model.User) {
 	return
 }
 
-func (r Users) FindById(id string) (user *model.User) {
-	primitiveId, err := primitive.ObjectIDFromHex(id)
-	if err != nil {
-		errors.WrongId()
-		return nil
-	}
+func (r Users) FindByKey(secret string) (user *model.User) {
 	mongoUser := &mongoModel.User{}
-	if err := r.userList.FindOne(r.ctx, bson.M{"_id": primitiveId}).Decode(mongoUser); err != nil {
+	if err := r.userList.FindOne(r.ctx, bson.M{"secret": secret}).Decode(mongoUser); err != nil {
 		errors.CantDecodeData(err)
 		return nil
 	}

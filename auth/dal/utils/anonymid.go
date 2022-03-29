@@ -2,6 +2,6 @@ package utils
 
 import "github.com/google/uuid"
 
-func AnonymId () string {
+func AnonymKey() string {
 	return uuid.New().String()
 }

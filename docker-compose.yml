@@ -30,7 +30,8 @@ services:
       target: prod
     working_dir: /anonym
     ports:
-      - "8808:8808"  # Opened ports
+      - "8808:8808"
+      - "40000:40000"
     depends_on:
       - anonym-data
       - redis
@@ -60,7 +61,7 @@ services:
       - MYSQL_PASSWORD=GDS64okey
     volumes:
       - ./.data/mysql:/data/mysql
-      - ./.data/init.sql:/data/init.sql
+#      - ./.data/init.sql:/data/init.sql
 #    ports:
 #      - 3306:3306    #needs only for development purpose
 

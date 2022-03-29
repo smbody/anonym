@@ -1,12 +1,12 @@
 package gorm
 
 import (
-	"github.com/smbody/anonym/config"
-	"github.com/smbody/anonym/errors"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/postgres"
 	"gorm.io/driver/sqlserver"
 	"gorm.io/gorm"
+	"itsln.com/anonym/config"
+	"itsln.com/anonym/errors"
 )
 
 func Init() *Users {

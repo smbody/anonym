@@ -1,10 +1,9 @@
 package usecase
 
 import (
-	"fmt"
-	"github.com/smbody/anonym/auth/dal"
-	"github.com/smbody/anonym/errors"
-	"github.com/smbody/anonym/model"
+	"itsln.com/anonym/auth/dal"
+	"itsln.com/anonym/errors"
+	"itsln.com/anonym/model"
 )
 
 type Logic struct {
@@ -24,19 +23,19 @@ func (l Logic) SignUp() *model.User {
 	return user
 }
 
-func (l Logic) SignIn(Id string) *model.Token {
-	user := l.repo.FindById(Id)
-	if user == nil {
-		errors.WrongData(fmt.Sprintf("Cant find user by id =%s", Id))
-		return nil
+func (l Logic) SignIn(Secret string) *model.Token {
+	if len(Secret) > 0 {
+		if user := l.repo.FindByKey(Secret); user != nil {
+			return l.login(user)
+		}
 	}
-	return l.login(user)
-
+	errors.SecretNotValid()
+	return nil
 }
 
 func (l Logic) login(user *model.User) (token *model.Token) {
 	if token, err := model.NewToken(); err == nil {
-		if err = l.cache.Add(token, user); err == nil {
+		if err = l.cache.Add(token, user.ToAnonym()); err == nil {
 			return token
 		}
 	}
@@ -44,9 +43,9 @@ func (l Logic) login(user *model.User) (token *model.Token) {
 	return nil
 }
 
-func (l Logic) Verify(token *model.Token) *model.User {
-	if user, err := l.cache.Find(token); err == nil {
-		return user
+func (l Logic) Verify(token *model.Token) *model.Anonym {
+	if anm, err := l.cache.Find(token); err == nil {
+		return anm
 	}
 	errors.TokenNotValid()
 	return nil

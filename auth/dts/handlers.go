@@ -1,8 +1,8 @@
 package dts
 
 import (
-	"github.com/smbody/anonym/auth/usecase"
-	"github.com/smbody/anonym/model"
+	"itsln.com/anonym/auth/usecase"
+	"itsln.com/anonym/model"
 	"net/http"
 )
 
@@ -21,7 +21,7 @@ func (a *Handlers) SignUp(writer http.ResponseWriter, request *http.Request) {
 func (a *Handlers) SignIn(writer http.ResponseWriter, request *http.Request) {
 	user := model.NewUser()
 	Unmarshal(request.Body, user)
-	writer.Write(Marshal(a.bl.SignIn(user.Id)))
+	writer.Write(Marshal(a.bl.SignIn(user.Secret)))
 }
 
 func (a *Handlers) Verify(writer http.ResponseWriter, request *http.Request) {

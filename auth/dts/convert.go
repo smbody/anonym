@@ -2,8 +2,8 @@ package dts
 
 import (
 	"encoding/json"
-	"github.com/smbody/anonym/errors"
 	"io"
+	"itsln.com/anonym/errors"
 )
 
 func Unmarshal(reader io.Reader, entity interface{}) {
