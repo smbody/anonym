@@ -1,7 +1,6 @@
 package usecase
 
 import (
-	"fmt"
 	"github.com/smbody/anonym/auth/dal"
 	"github.com/smbody/anonym/errors"
 	"github.com/smbody/anonym/model"
@@ -25,13 +24,14 @@ func (l Logic) SignUp() *model.User {
 }
 
 func (l Logic) SignIn(Secret string) *model.Token {
+	if len(Secret) == 0 {
+		errors.SecretNotValid()
+	}
 	user := l.repo.FindByKey(Secret)
 	if user == nil {
-		errors.WrongData(fmt.Sprintf("Cant find user by id =%s", Secret))
-		return nil
+		errors.SecretNotValid()
 	}
 	return l.login(user)
-
 }
 
 func (l Logic) login(user *model.User) (token *model.Token) {

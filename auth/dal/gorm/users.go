@@ -30,6 +30,11 @@ func (u Users) Add() *model.User {
 
 func (u Users) FindByKey(secret string) *model.User {
 	anm := &g.User{}
+
+	// NOTE When querying with struct, GORM will only query
+	//with non-zero fields, /that means if your field’s value
+	//is 0, '', false or other zero values, it won’t be used
+	//to build query conditions
 	r := u.db.Where(&g.User{Secret: secret}).First(anm)
 	if r.Error != nil {
 		errors.WrongData(r.Error.Error())

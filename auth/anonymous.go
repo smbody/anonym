@@ -1,10 +1,11 @@
 package auth
 
 import (
+	"net/http"
+
 	"github.com/smbody/anonym/auth/dal"
 	"github.com/smbody/anonym/auth/dts"
 	"github.com/smbody/anonym/auth/usecase"
-	"net/http"
 )
 
 type Anonymous interface {
