@@ -1,9 +1,10 @@
 server:
   name: "Anonymous security server"
-  version: "0.0.3.0b"
+  version: "0.0.3.1b"
   host:
   port: 8808
 database:
+  type: "mysql"
   uri: "inspector:GDS64okey@tcp(anonym-data:3306)/anonym?charset=utf8mb4&parseTime=True&loc=Local"
   name: "anonymous"
 redis:
