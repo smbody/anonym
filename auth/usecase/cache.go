@@ -1,8 +1,8 @@
 package usecase
 
 import (
-	"github.com/smbody/anonym/auth/usecase/redis"
-	"github.com/smbody/anonym/model"
+	"itsln.com/anonym/auth/usecase/redis"
+	"itsln.com/anonym/model"
 )
 
 type Cache interface {

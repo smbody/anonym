@@ -2,10 +2,10 @@ package mongo
 
 import (
 	"context"
-	"github.com/smbody/anonym/config"
-	"github.com/smbody/anonym/errors"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"itsln.com/anonym/config"
+	"itsln.com/anonym/errors"
 	"log"
 	"time"
 )

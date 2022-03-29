@@ -1,7 +1,7 @@
 package middlewares
 
 import (
-	"github.com/smbody/anonym/errors"
+	"itsln.com/anonym/errors"
 	"log"
 	"net/http"
 )

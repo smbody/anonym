@@ -3,9 +3,9 @@ package redis
 import (
 	"context"
 	json "encoding/json"
-	"github.com/go-redis/redis/v8"
-	"github.com/smbody/anonym/config"
-	"github.com/smbody/anonym/model"
+	"itsln.com/anonym/config"
+	"itsln.com/anonym/model"
+    "github.com/go-redis/redis/v8"
 	"log"
 	"time"
 )

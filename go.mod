@@ -1,4 +1,4 @@
-module github.com/smbody/anonym
+module itsln.com/anonym
 
 go 1.15
 

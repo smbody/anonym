@@ -1,10 +1,10 @@
 package dal
 
 import (
-	"github.com/smbody/anonym/auth/dal/gorm"
-	"github.com/smbody/anonym/auth/dal/mongo"
-	"github.com/smbody/anonym/config"
-	"github.com/smbody/anonym/model"
+	"itsln.com/anonym/auth/dal/gorm"
+	"itsln.com/anonym/auth/dal/mongo"
+	"itsln.com/anonym/config"
+	"itsln.com/anonym/model"
 	"log"
 )
 

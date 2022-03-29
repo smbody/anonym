@@ -1,7 +1,7 @@
 package model
 
 import (
-	"github.com/smbody/anonym/model"
+	"itsln.com/anonym/model"
 	"strconv"
 )
 

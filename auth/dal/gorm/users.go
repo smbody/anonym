@@ -1,11 +1,11 @@
 package gorm
 
 import (
-	g "github.com/smbody/anonym/auth/dal/gorm/model"
-	"github.com/smbody/anonym/auth/dal/utils"
-	"github.com/smbody/anonym/errors"
-	"github.com/smbody/anonym/model"
 	"gorm.io/gorm"
+	g "itsln.com/anonym/auth/dal/gorm/model"
+	"itsln.com/anonym/auth/dal/utils"
+	"itsln.com/anonym/errors"
+	"itsln.com/anonym/model"
 )
 
 type Users struct {
@@ -32,7 +32,7 @@ func (u Users) FindByKey(secret string) *model.User {
 	anm := &g.User{}
 
 	// NOTE When querying with struct, GORM will only query
-	//with non-zero fields, /that means if your field’s value
+	//with non-zero fields, that means if your field’s value
 	//is 0, '', false or other zero values, it won’t be used
 	//to build query conditions
 	r := u.db.Where(&g.User{Secret: secret}).First(anm)

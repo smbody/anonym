@@ -2,12 +2,12 @@ package mongo
 
 import (
 	"context"
-	mongoModel "github.com/smbody/anonym/auth/dal/mongo/model"
-	"github.com/smbody/anonym/errors"
-	"github.com/smbody/anonym/model"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
+	mongoModel "itsln.com/anonym/auth/dal/mongo/model"
+	"itsln.com/anonym/errors"
+	"itsln.com/anonym/model"
 )
 
 type Users struct {

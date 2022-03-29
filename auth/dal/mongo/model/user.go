@@ -1,8 +1,8 @@
 package model
 
 import (
-	"github.com/smbody/anonym/model"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"itsln.com/anonym/model"
 )
 
 type User struct {

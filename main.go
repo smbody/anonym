@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/smbody/anonym/auth"
-	"github.com/smbody/anonym/config"
-	"github.com/smbody/anonym/middlewares"
+	"itsln.com/anonym/auth"
+	"itsln.com/anonym/config"
+	"itsln.com/anonym/middlewares"
 	"log"
 	"net/http"
 )

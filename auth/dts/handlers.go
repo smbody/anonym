@@ -1,8 +1,8 @@
 package dts
 
 import (
-	"github.com/smbody/anonym/auth/usecase"
-	"github.com/smbody/anonym/model"
+	"itsln.com/anonym/auth/usecase"
+	"itsln.com/anonym/model"
 	"net/http"
 )
 

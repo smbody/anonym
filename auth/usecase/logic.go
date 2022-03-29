@@ -1,9 +1,9 @@
 package usecase
 
 import (
-	"github.com/smbody/anonym/auth/dal"
-	"github.com/smbody/anonym/errors"
-	"github.com/smbody/anonym/model"
+	"itsln.com/anonym/auth/dal"
+	"itsln.com/anonym/errors"
+	"itsln.com/anonym/model"
 )
 
 type Logic struct {
@@ -24,14 +24,13 @@ func (l Logic) SignUp() *model.User {
 }
 
 func (l Logic) SignIn(Secret string) *model.Token {
-	if len(Secret) == 0 {
-		errors.SecretNotValid()
+	if len(Secret) > 0 {
+		if user := l.repo.FindByKey(Secret); user != nil {
+			return l.login(user)
+		}
 	}
-	user := l.repo.FindByKey(Secret)
-	if user == nil {
-		errors.SecretNotValid()
-	}
-	return l.login(user)
+	errors.SecretNotValid()
+	return nil
 }
 
 func (l Logic) login(user *model.User) (token *model.Token) {
